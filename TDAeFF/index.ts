@@ -1,4 +1,4 @@
-/* enum Status {
+enum Status {
     DRAFT,
     PUBLISHED,
     DELETED
@@ -54,7 +54,4 @@ class RedeSocial{
     }
 }
 
-const redeSocialInstance: RedeSocial = new RedeSocial(); // necessário, por causa do constryctor
-
-/*obs:
-- No TypeScript (e em JavaScript em geral), o código executável deve estar dentro de funções ou métodos */
+const redeSocialInstance: RedeSocial = new RedeSocial();
