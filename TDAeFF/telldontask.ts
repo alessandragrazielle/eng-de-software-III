@@ -1,6 +1,6 @@
 // Testes e validações devem existir dentro da própria classe;
 
-/* enum Status {
+enum Status {
     DRAFT,
     PUBLISHED,
     DELETED
@@ -57,4 +57,4 @@ class RedeSocial{
     }
 }
 
-new RedeSocial(); */
+new RedeSocial(); 
