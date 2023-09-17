@@ -1,4 +1,4 @@
-//No nosso código anterior, há duas validações, a leitura fica dificultada pelo grau de identação de 3 níveis, com os “ifs e elses” aninhados; com exceções, podemos simplificar o código que elas interrompem a execução ao encontrar um erro. */
+//No nosso código anterior, há duas validações, a leitura fica dificultada pelo grau de identação de 3 níveis, com os “ifs e elses” aninhados; com exceções, podemos simplificar o código que elas interrompem a execução ao encontrar um erro.
 // Testar primeiro os casos de falha e lançar exceções;
 
 enum Status {
