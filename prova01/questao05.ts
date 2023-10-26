@@ -9,7 +9,7 @@ class Transacao{
     }
 
     public salvarTransacao(): void{
-        // codigo
+        // codigo salvar transacao
     }
 
     getTipo(): string{
