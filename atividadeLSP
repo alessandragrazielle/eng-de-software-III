@@ -1,0 +1,41 @@
+1. Porque foi criado por Barbara Liskov, em 1988
+2. Quadrado e retângulo. Apesar de um quadrado ser considerado um retângulo (pois todas as propriedades de um retângulo se aplicam a um quadrado), usar a herança fará com que "Quadrado" herde funcionalidades da classe “Retêngulo” que podem não ser apropriadas. Então, embora um quadrado seja um tipo de retângulo, nem sempre a herança é a melhor maneira de modelar essa relação.
+
+4. No exemplo da aplicação BirdsFlyingAroundApp, que foi inicialmente projetada com base no Open Closed Principle, o que permitiu adicionar novos tipos de pássaros sem modificar o código. 
+
+class Bird {
+public:
+    virtual void setLocation(double longitude, double latitude) = 0;
+    virtual void setAltitude(double altitude) = 0;
+    virtual void draw() = 0;
+};
+
+No entanto, quando é necessário adicionar pinguins, o desenvolvedor criou uma classe “Penguin” que herda da classe base “Bird". A implementação do método “setAltitude” na classe “Penguin” não faz nada, pois pinguins não voam.
+
+A classe base “Bird" faz a suposição de que todos os pássaros podem voar, e essa suposição é quebrada pela classe derivada “Penguin”. Isso leva a um problema de design em que a herança não reflete corretamente a relação "é um" entre pinguins e outros pássaros.
+
+5. 
+class Flying {
+  setAltitude(altitude: number) {}
+}
+
+class Bird {
+  private flying: Flying | null = null;
+
+  draw() {}
+  setLocation(longitude: number, latitude: number) {}
+
+  // adicionar funcionalidade de voo
+  enableFlying() {
+    this.flying = new Flying();
+  }
+
+  // metodo para aves que voam
+  setAltitude(altitude: number) {
+    if (this.flying) {
+      this.flying.setAltitude(altitude);
+    } else {
+      // caso a funcionalidade de voo não esteja habilitada
+    }
+  }
+}
