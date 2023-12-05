@@ -43,13 +43,13 @@ abstract class Usuario{
 }
 
 class Leitor extends Usuario{
-    constructor(nome:string, nomeUsuario:string, senha:number, moedas:number){
+    constructor(nome:string, nomeUsuario:string, senha:number){
         super(nome, nomeUsuario, senha);
     }
 }
 
 class Autor extends Usuario{
-    constructor(nome:string, nomeUsuario:string, senha:number, caixa:number){
+    constructor(nome:string, nomeUsuario:string, senha:number){
         super(nome, nomeUsuario, senha);
     }
 }
