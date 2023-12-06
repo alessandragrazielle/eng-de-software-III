@@ -1,12 +1,46 @@
 import prompt from "prompt-sync";
-import {Usuario, User, Leitor, Autor, Publicacao, Livro, Artigo, Biblioteca} from "./index";
+import {Usuario, UsersList, Leitor, Autor, Publicacao, Livro, Artigo, Biblioteca} from "./indexSolid";
 import {AplicacaoError, ValorInvalidoError, UsuarioNaoEncontradoError} from "./excecoes";
 
 let input = prompt();
-let u: User = new User;
+let u: UsersList = new UsersList;
 let b: Biblioteca = new Biblioteca;
 
 let opcao: string = '';
+
+do{
+    try{
+        console.log('\nSeja bem vindo!');
+        console.log('1 - Cadastrar    2 - Consultar Cadastro    3 - Excluir Cadastro\n' +
+        '4 - Listar Usuários    5 - Ações    0 - Sair');
+        
+        opcao = input('\nDigite uma opção: ');
+        switch (opcao) {
+            case "1":
+                cadastrar();
+                break
+            case "2":
+                consultar();
+                break
+            case "3":
+                excluirCadastro();
+                break;
+            case "4":
+                listarUsuarios();
+                break;
+            case "5":
+                acoes();
+                break;
+        }
+    } catch(e: any){
+        if(e instanceof AplicacaoError) {
+            console.log(e.message);
+        } else {
+            console.log("Erro não esperado, contate o administrador!");
+        }
+    }
+    input('\nOperação finalizada. Pressione <enter>');
+} while(opcao != "0")
 
 function cadastrar(){
     console.log('\nCadastrar um usuário');
@@ -31,9 +65,9 @@ function cadastrar(){
     }
 
     if (tipo == 'l'){
-        usuario = new Leitor(nome, nomeUsuario, senha, 0);
+        usuario = new Leitor(nome, nomeUsuario, senha);
     } else if(tipo == 'a'){
-        usuario = new Autor(nome, nomeUsuario, senha, 0);
+        usuario = new Autor(nome, nomeUsuario, senha);
     }
 
     u.cadastrar(usuario);
@@ -77,16 +111,17 @@ function publicar(){
     let autor: string = input('Autor: ');
     let resumo: string = input('Resumo: ');
     let qtdPaginasStr: string = input('Quantidade de páginas: ');
+    let conteudo: string = input ('Conteudo: ')
 
     let id: number = parseInt(idStr);
     let qtdPaginas: number = parseInt(qtdPaginasStr);
 
     if(opcao == 'a'){
         let palavrasChave: string = input('Palavras chave: ')
-        publicacao = new Artigo(id, titulo, autor, resumo, qtdPaginas, palavrasChave);
+        publicacao = new Artigo(id, titulo, autor, resumo, qtdPaginas, conteudo, palavrasChave);
     } else if(opcao == 'l'){
         let genero: string = input('Gênero: ');
-        publicacao = new Livro(id, titulo, autor, resumo, qtdPaginas, genero);
+        publicacao = new Livro(id, titulo, autor, resumo, qtdPaginas, conteudo, genero);
     }
 
     b.publicar(publicacao);
@@ -197,38 +232,3 @@ function acoes(){
         } while(opcao != "0")
     }
 }
-
-
-do{
-    try{
-        console.log('\nSeja bem vindo!');
-        console.log('1 - Cadastrar    2 - Consultar Cadastro    3 - Excluir Cadastro\n' +
-        '4 - Listar Usuários    5 - Ações    0 - Sair');
-        
-        opcao = input('\nDigite uma opção: ');
-        switch (opcao) {
-            case "1":
-                cadastrar();
-                break
-            case "2":
-                consultar();
-                break
-            case "3":
-                excluirCadastro();
-                break;
-            case "4":
-                listarUsuarios();
-                break;
-            case "5":
-                acoes();
-                break;
-        }
-    } catch(e: any){
-        if(e instanceof AplicacaoError) {
-            console.log(e.message);
-        } else {
-            console.log("Erro não esperado, contate o administrador!");
-        }
-    }
-    input('\nOperação finalizada. Pressione <enter>');
-} while(opcao != "0")
