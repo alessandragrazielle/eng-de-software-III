@@ -60,7 +60,7 @@ interface IUser{
     listarUsuarios(): string;
 }
 
-class User implements IUser{
+class UsersList implements IUser{
     private _usuarios: Usuario[] = [];
 
     cadastrar(usuario: Usuario): void{
@@ -161,13 +161,16 @@ abstract class Publicacao{
     private _autor: string;
     private _resumo: string;
     private _qtdPaginas: number;
+    private _conteudo: string;
 
-    constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number){
+    constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number, conteudo: string){
         this._id = id;
         this._titulo = titulo;
         this._autor = autor;
         this._resumo = resumo;
         this._qtdPaginas = qtdPaginas;
+        this._conteudo = conteudo; 
+
         this.validarValor(id); this.validarValor(qtdPaginas);
         this.validarEntrada(titulo); this.validarEntrada(autor); this.validarEntrada(resumo);
     }
@@ -188,6 +191,14 @@ abstract class Publicacao{
         return this._resumo;
     }
 
+    get qtdPaginas(){
+        return this._qtdPaginas;
+    }
+
+    get conteudo(){
+        return this._conteudo;
+    }
+
     private validarValor(valor: number): boolean{
         if (isNaN(valor) || valor < 0){
             throw new ValorInvalidoError(`\nO valor ${valor} não é válido! Por favor, verifique os campos preenchidos.`);
@@ -201,23 +212,35 @@ abstract class Publicacao{
         }
         return true;
     }
+
+    public contarPalavras(): number {
+        return this.conteudo.split(" ").length;
+    }
 }
 
 class Livro extends Publicacao{
     private _genero: string;
 
-    constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number, genero:string){
-        super(id, titulo, autor, resumo, qtdPaginas);
+    constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number, conteudo: string, genero:string){
+        super(id, titulo, autor, resumo, qtdPaginas, conteudo);
         this._genero = genero;
+    }
+
+    public contarPalavras(): number {
+        throw new AplicacaoError('Não é possivel contar as palavras em livro');
     }
 }
 
 class Artigo extends Publicacao{
     private _palavrasChave: string;
 
-    constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number, palavras:string){
-        super(id, titulo, autor, resumo, qtdPaginas);
+    constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number, conteudo: string, palavras:string){
+        super(id, titulo, autor, resumo, qtdPaginas, conteudo);
         this._palavrasChave = palavras;
+    }
+
+    public contarPalavras(): number {
+        return this.conteudo.split(" ").length;
     }
 }
 
@@ -296,5 +319,4 @@ class Biblioteca implements IBiblioteca{
         return lista;
     }
 }
-
-export {Usuario, User, Leitor, Autor, Publicacao, Artigo, Livro, Biblioteca};
+export {Usuario, UsersList, Leitor, Autor, Publicacao, Artigo, Livro, Biblioteca};
