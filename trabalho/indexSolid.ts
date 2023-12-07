@@ -181,7 +181,7 @@ export class UsersList implements IUser{
 }
 
 //Princípio da Segregação de Interface (ISP) - criar interfaces mais específicas
-interface IBiblioteca{ //não foi alterado
+interface IBiblioteca{ 
     publicar(publicacao: Publicacao): void;
     excluir(id: number): void;
     listarPublicacoes(): string;
@@ -231,10 +231,6 @@ export class Publicacao{
     get conteudo(){
         return this._conteudo;
     }
-
-    public contarPalavras(): number {
-        return this.conteudo.split(" ").length;
-    }
 }
 
 //Princípio Aberto/Fechado (OCP) - as classes Leitor e Autor extendidas para que sejam fechadas para modificações e abertas para extensão
@@ -244,11 +240,6 @@ export class Livro extends Publicacao{
     constructor(id:number, titulo:string, autor:string, resumo:string, qtdPaginas:number, conteudo: string, genero:string){
         super(id, titulo, autor, resumo, qtdPaginas, conteudo);
         this._genero = genero;
-    }
-
-    // Principio de Substituição de Liskov
-    public contarPalavras(): number {
-        return 0;
     }
 }
 
@@ -260,6 +251,7 @@ export class Artigo extends Publicacao{
         this._palavrasChave = palavras;
     }
 
+    // Principio de Substituição de Liskov
     public contarPalavras(): number {
         return this.conteudo.split(" ").length;
     }
