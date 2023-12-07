@@ -84,7 +84,7 @@ export class Autor extends Usuario{
 
 export class UsersList implements IUser{
     private _usuarios: Usuario[] = [];
-    private _autenticador: IAutenticacao = new Autenticacao;//Princípio de Inversão de Dependência (DIP)
+    private _autenticador: IAutenticacao = new Autenticacao();//Princípio de Inversão de Dependência (DIP)
 
     cadastrar(usuario: Usuario): void{
         try{
